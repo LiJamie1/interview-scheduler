@@ -1,14 +1,14 @@
 import React from "react";
 import classNames from "classnames"
 
-import "components/DayListItem"
+import "components/DayListItem.scss"
 
 export default function DayListItem(props) {
   console.log(props)
 
   const listClass = classNames("day-list__item", {
   "day-list__item--selected": props.selected,
-  "day-list__item--full.": props.full
+  "day-list__item--full": props.spots === 0
   });
 
   return (
