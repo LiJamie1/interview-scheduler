@@ -10,8 +10,9 @@ export default function InterviewerListItem(props) {
   // avatar: url
   // selected: bool
   // setInterviewer: function
+
   const listClass = classNames("interviewers__item", {
-    "day-list__item--selected": props.selected
+    "interviewers__item--selected": props.selected
   });
 
   return (
