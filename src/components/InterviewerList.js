@@ -1,6 +1,8 @@
 import React from "react";
 import InterviewerListItem from "./InterviewerListItem";
 
+import "components/InterviewerList.scss"
+
 const interviewers = [
   { id: 1, name: "Sylvia Palmer", avatar: "https://i.imgur.com/LpaY82x.png" },
   { id: 2, name: "Tori Malcolm", avatar: "https://i.imgur.com/Nmx0Qxo.png" },
@@ -15,18 +17,22 @@ export default function InterviewerList(props) {
   // selected: bool
   // setInterviewer: function
 
-  const interviewerArray = interviewers.map((interviewer) => 
-    <InterviewerListItem 
-      key = {interviewer.id}
-      name = {interviewer.name}
-      avatar = {interviewer.avatar}
-      selected = {props.selected}
-      setInterviewer = {props.setInterviewer}
-      />)
+  const interviewerArray = interviewers.map((interviewer) =>
+    <InterviewerListItem
+      key={interviewer.id}
+      name={interviewer.name}
+      avatar={interviewer.avatar}
+      selected={props.selected}
+      setInterviewer={props.setInterviewer}
+    />)
 
   return (
-    <ul>
-      {interviewerArray}
-    </ul>
+    <section className="interviewers">
+      <h4 className="interviewers__header text--light">Interviewer</h4>
+      <ul className="interviewers__list">
+        {interviewerArray}
+      </ul>
+    </section>
+
   )
 }
