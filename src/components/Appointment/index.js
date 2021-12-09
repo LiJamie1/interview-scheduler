@@ -20,3 +20,6 @@ export default function Appointment(props) {
     </article>
   );
 }
+
+// const { interview, time } = props
+// const { interviewer } = interview
