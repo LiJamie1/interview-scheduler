@@ -12,7 +12,7 @@ export default function DayListItem(props) {
   // setDay: function
   
   const listClass = classNames("day-list__item", {
-  "day-list__item--selected": props.selected === props.name,
+  "day-list__item--selected": props.selected,
   "day-list__item--full": props.spots === 0
   });
 
