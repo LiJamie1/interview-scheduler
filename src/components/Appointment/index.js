@@ -6,20 +6,15 @@ import Empty from "./Empty";
 
 export default function Appointment(props) {
 
-  // const appointmentText = function (props) {
-  //   if (props.time) {
-  //     return `Appointment at ${props.time}`
-  //   }
-  //   return "No Appointments"
-  // }
+  const { interview, time } = props
+  
   console.log(props)
   return (
     <article className="appointment">
-      <Header time={props.time} />
-      {props.interview ? <Show student={props.interview.student} interviewer={props.interview.interviewer} time={props.time}/> : <Empty />}
+      <Header time={time} />
+      {props.interview ? <Show student={interview.student} interviewer={interview.interviewer} /> : <Empty />}
     </article>
   );
 }
 
-// const { interview, time } = props
-// const { interviewer } = interview
+// 
