@@ -9,24 +9,25 @@ export default function Application(props) {
   const [state, setState] = useState({
     day: "Monday",
     days: [],
-    appointments: {}
+    appointments: {},
+    interviewer: {}
   });
-  
+
   const setDay = day => setState({ ...state, day });
-  
+
   useEffect(() => {
     const urlBase = 'http://localhost:8001/api/';
     const promiseDays = axios.get(`${urlBase}days`);
     const promiseAppointments = axios.get(`${urlBase}appointments`);
-    
+
     Promise.all([promiseDays, promiseAppointments])
-    .then((all) => {
-      const days = all[0].data;
-      const appointments = all[1].data;
-      setState((prev) => ({...prev, days, appointments}));
-    })
+      .then((all) => {
+        const days = all[0].data;
+        const appointments = all[1].data;
+        setState((prev) => ({ ...prev, days, appointments }));
+      })
   }, []);
-  
+
   const dailyAppointments = getAppointmentsForDay(state, state.day);
   const appointmentArray = dailyAppointments.map(appointment =>
     <Appointment
