@@ -45,13 +45,14 @@ const appointments = [
 
 
 export default function Application(props) {
-  const [day, setDay] = useState("Monday")
-  const [days, setDays] = useState([])
   const [state, setState] = useState({
     day: "Monday",
     days: [],
     appointments: {}
   })
+
+  const setDay = day => setState({...state, day });
+  const setDays = days => setState((prev) => ({...prev, days}));
 
   const appointmentArray = appointments.map((appointment) => 
     <Appointment
@@ -62,10 +63,8 @@ export default function Application(props) {
 
   useEffect(() => {
     axios.get(`http://localhost:8001/api/days`)
-      .then((res) => {
-        setDays(res.data)
-      })
-  },[])
+      .then(res => setDays(res.data))
+  }, [])
 
   return (
     <main className="layout">
