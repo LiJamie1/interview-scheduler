@@ -60,7 +60,7 @@ export default function Application(props) {
       .then((res) => {
         setDays(res.data)
       })
-  })
+  },[])
 
   return (
     <main className="layout">
