@@ -20,7 +20,7 @@ export default function DayListItem(props) {
     if (spots === 0) {
       return "no spots"
     }
-    return (spots === 1) ? "1 spot " : `${spots} spots `
+    return (spots === 1) ? "1 spot" : `${spots} spots`
   }
 
   return (
@@ -30,7 +30,3 @@ export default function DayListItem(props) {
     </li>
   );
 }
-
-// {props.spots === 0 && <h3 className="text--light">no spots remaining</h3>}
-// {props.spots === 1 && <h3 className="text--light">{props.spots} spot remaining</h3>}
-// {props.spots > 1 && <h3 className="text--light">{props.spots} spots remaining</h3>}

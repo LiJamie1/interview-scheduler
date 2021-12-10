@@ -14,11 +14,11 @@ export default function DayList(props) {
     spots={dayInfo.spots} 
     selected={props.value === dayInfo.name} 
     setDay={props.onChange} 
-  />)
+  />);
 
   return(
     <ul>
       {daysArray}
     </ul>
-  )
+  );
 }
