@@ -5,6 +5,7 @@ import Appointment from "./Appointment";
 import { getAppointmentsForDay, getInterview } from "helpers/selectors";
 import "components/Application.scss";
 
+
 export default function Application(props) {
   const [state, setState] = useState({
     day: "Monday",
@@ -33,7 +34,6 @@ export default function Application(props) {
   const dailyAppointments = getAppointmentsForDay(state, state.day);
   const appointmentArray = dailyAppointments.map(appointment => {
     const interview = getInterview(state, appointment.interview)
-    
     return (<Appointment
       key={appointment.id}
       id={appointment.id}
@@ -41,6 +41,7 @@ export default function Application(props) {
       time={appointment.time}
     />)
   });
+
 
   return (
     <main className="layout">
