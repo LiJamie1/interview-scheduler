@@ -9,11 +9,9 @@ const EMPTY = "EMPTY";
 const SHOW = "SHOW";
 const CREATE = "CREATE";
 
-const interviewers = [];
-
 export default function Appointment(props) {
 
-  const { interview, time } = props;
+  const { interview, time, interviewers } = props;
   const { mode, transition, back } = useVisualMode(
     props.interview ? SHOW : EMPTY
   );
