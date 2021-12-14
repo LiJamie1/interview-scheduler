@@ -33,11 +33,11 @@ export default function Appointment(props) {
     transition(SAVE);
     bookInterview(id, interview)
       .then(() => transition(SHOW))
-      .catch(() => transition(ERROR_SAVE));
+      .catch(() => transition(ERROR_SAVE, true));
   }
 
   function edit() {
-    transition(EDIT)
+    transition(EDIT);
   }
 
   function confirm() {
@@ -48,11 +48,19 @@ export default function Appointment(props) {
     transition(SHOW);
   }
 
+  function delError() {
+    transition(CONFIRM);
+  }
+
+  function saveError() {
+    transition(CREATE);
+  }
+
   function del() {
-    transition(DELETING);
+    transition(DELETING, true);
     cancelInterview(id)
       .then(() => transition(EMPTY))
-      .catch(() => transition(ERROR_DELETE));
+      .catch(() => transition(ERROR_DELETE, true));
   }
 
   return (
@@ -73,9 +81,21 @@ export default function Appointment(props) {
       {mode === SAVE && <Status message="Saving" />}
       {mode === DELETING && <Status message="Deleting" />}
       {mode === CONFIRM && <Confirm onConfirm={del} onCancel={cancel} />}
-      {mode === EDIT && <Form onCancel={cancel} onSave={save} student={interview.student} interviewer={interview.interviewer.id} interviewers={interviewers} />}
-      {mode === ERROR_SAVE && <Error message="Error saving. Please try again." />}
-      {mode === ERROR_DELETE && <Error message="Error deleting. Please try again." />}
+      {mode === EDIT && (
+        <Form
+          onCancel={cancel}
+          onSave={save}
+          student={interview.student}
+          interviewer={interview.interviewer.id}
+          interviewers={interviewers}
+        />
+      )}
+      {mode === ERROR_SAVE && (
+        <Error message="Error saving. Please try again." onClose={saveError} />
+      )}
+      {mode === ERROR_DELETE && (
+        <Error message="Error deleting. Please try again." onClose={delError} />
+      )}
     </article>
   );
 }
