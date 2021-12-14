@@ -77,7 +77,7 @@ export default function useApplicationData() {
     const newDays = state.days.map((day) =>
       day.name === state.day ? dayNewSpots : day
     ); // update day within the array of days
-    return newDays
+    return newDays;
   }
 
   return { state, setDay, bookInterview, cancelInterview };
