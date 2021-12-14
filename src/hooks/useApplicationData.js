@@ -18,6 +18,8 @@ export default function useApplicationData() {
     const promiseAppointments = axios.get(`${urlBase}appointments`);
     const promiseInterviewers = axios.get(`${urlBase}interviewers`);
 
+    // Grabs information for state from api from promise calls.
+    // .all - if any of the promises fail they all fail
     Promise.all([promiseDays, promiseAppointments, promiseInterviewers])
       .then((all) => {
         const days = all[0].data;
@@ -63,7 +65,7 @@ export default function useApplicationData() {
 
   function updateSpots(save) {
     const dayAppInfo = getAppointmentsForDay(state, state.day);
-    // console.log('pain',dayAppInfo)
+    // console.log('dayAppInfo',dayAppInfo) // returns an array of objects containing appointment/interview information
     const targetDay = { ...state.days.find((day) => day.name === state.day) };
     // // console.log('targetDay',targetDay.appointments) //object with id, day, appointments, interviewers, spots
     const nullApps = dayAppInfo.filter((app) => !app.interview).length;
