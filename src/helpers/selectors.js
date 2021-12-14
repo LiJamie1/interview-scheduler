@@ -1,7 +1,6 @@
 export function getAppointmentsForDay(state, day) {
   // state object containing days: array of objects and appointments: object of objects
   const { days, appointments } = state;
-  console.log(state.days)
   const targetDay = days.find((obj) => obj.name === day);
   // {id: 1, name: "Monday", appointments: [1,2,3]}
   if (targetDay) {

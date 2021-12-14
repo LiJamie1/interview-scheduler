@@ -70,8 +70,15 @@ export default function useApplicationData() {
     // console.log("nullApps", nullApps); // returns number of null interviews
     const spots = nullApps + (save ? -1 : 1);
     // console.log("spots", spots); // returns number of spots after checking if input is true/false
-    return { ...targetDay, spots };
+    const dayNewSpots = {
+      ...targetDay,
+      spots,
+    }; // new object with day and spot value
+    const newDays = state.days.map((day) =>
+      day.name === state.day ? dayNewSpots : day
+    ); // update day within the array of days
+    return newDays
   }
 
-  return { state, setDay, bookInterview, cancelInterview, updateSpots };
+  return { state, setDay, bookInterview, cancelInterview };
 }
