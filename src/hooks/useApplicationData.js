@@ -42,7 +42,11 @@ export default function useApplicationData() {
       [id]: appointment,
     };
     return axios.put(`/api/appointments/${id}`, { interview }).then((res) => {
-      const days = updateSpots(true);
+      let days = [...state.days] 
+      if (!state.appointments[id].interview) {
+        days = updateSpots(true)
+      }
+    
       setState((prev) => ({ ...prev, appointments, days }));
     });
   }
