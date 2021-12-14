@@ -1,10 +1,11 @@
 import React from "react";
 import "components/Appointment/styles.scss";
+import Confirm from "./Confirm";
+import Empty from "./Empty";
+import Error from "./Error";
+import Form from "./Form";
 import Header from "./Header";
 import Show from "./Show";
-import Empty from "./Empty";
-import Form from "./Form";
-import Confirm from "./Confirm";
 import Status from "./Status";
 import useVisualMode from "hooks/useVisualMode";
 const EMPTY = "EMPTY";
@@ -12,8 +13,10 @@ const SHOW = "SHOW";
 const CREATE = "CREATE";
 const SAVE = "SAVE";
 const DELETING = "DELETING";
-const ERROR_DELETE = "ERROR_DELETE";
 const CONFIRM = "CONFIRM";
+const EDIT = "EDIT";
+const ERROR_DELETE = "ERROR_DELETE";
+const ERROR_SAVE = "ERROR_SAVE";
 
 export default function Appointment(props) {
   const { id, interview, time, interviewers, bookInterview, cancelInterview } =
@@ -30,7 +33,11 @@ export default function Appointment(props) {
     transition(SAVE);
     bookInterview(id, interview)
       .then(() => transition(SHOW))
-      .catch((err) => console.log(err));
+      .catch(() => transition(ERROR_SAVE));
+  }
+
+  function edit() {
+    transition(EDIT)
   }
 
   function confirm() {
@@ -57,6 +64,7 @@ export default function Appointment(props) {
           student={interview.student}
           interviewer={interview.interviewer}
           onDelete={confirm}
+          onEdit={edit}
         />
       )}
       {mode === CREATE && (
@@ -64,7 +72,10 @@ export default function Appointment(props) {
       )}
       {mode === SAVE && <Status message="Saving" />}
       {mode === DELETING && <Status message="Deleting" />}
-      {mode === CONFIRM && <Confirm onConfirm={del} onCancel={cancel}/>}
+      {mode === CONFIRM && <Confirm onConfirm={del} onCancel={cancel} />}
+      {mode === EDIT && <Form onCancel={cancel} onSave={save} student={interview.student} interviewer={interview.interviewer.id} interviewers={interviewers} />}
+      {mode === ERROR_SAVE && <Error message="Error saving. Please try again." />}
+      {mode === ERROR_DELETE && <Error message="Error deleting. Please try again." />}
     </article>
   );
 }
