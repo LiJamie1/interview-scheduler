@@ -11,9 +11,11 @@ export default function DayListItem(props) {
   // selected: bool
   // setDay: function
 
+  const {selected, spots, setDay, name} = props;
+
   const listClass = classNames("day-list__item", {
-    "day-list__item--selected": props.selected,
-    "day-list__item--full": props.spots === 0,
+    "day-list__item--selected": selected,
+    "day-list__item--full": spots === 0,
   });
 
   const spotCheck = (spots) => {
@@ -24,9 +26,9 @@ export default function DayListItem(props) {
   };
 
   return (
-    <li onClick={() => props.setDay(props.name)} className={listClass}>
-      <h2 className="text--regular">{props.name}</h2>
-      <h3 className="text--light">{spotCheck(props.spots)} remaining</h3>
+    <li onClick={() => setDay(name)} className={listClass}>
+      <h2 className="text--regular">{name}</h2>
+      <h3 className="text--light">{spotCheck(spots)} remaining</h3>
     </li>
   );
 }

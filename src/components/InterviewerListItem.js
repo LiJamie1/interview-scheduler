@@ -10,19 +10,20 @@ export default function InterviewerListItem(props) {
   // avatar: url
   // selected: bool
   // setInterviewer: function
+  const {selected, setInterviewer, avatar, name} = props
 
   const listClass = classNames("interviewers__item", {
-    "interviewers__item--selected": props.selected,
+    "interviewers__item--selected": selected,
   });
 
   return (
-    <li onClick={props.setInterviewer} className={listClass}>
+    <li onClick={setInterviewer} className={listClass}>
       <img
         className="interviewers__item-image"
-        src={props.avatar}
-        alt={props.name}
+        src={avatar}
+        alt={name}
       />
-      {props.selected && props.name}
+      {selected && name}
     </li>
   );
 }

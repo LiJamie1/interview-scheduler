@@ -4,18 +4,19 @@ import classNames from "classnames";
 import "components/Button.scss";
 
 export default function Button(props) {
+  const { disabled, onClick, children, confirm, danger} = props
   let buttonClass = classNames("button", {
-    "button--confirm": props.confirm,
-    "button--danger": props.danger,
+    "button--confirm": confirm,
+    "button--danger": danger,
   });
 
   return (
     <button
-      disabled={props.disabled}
-      onClick={props.onClick}
+      disabled={disabled}
+      onClick={onClick}
       className={buttonClass}
     >
-      {props.children}
+      {children}
     </button>
   );
 }
