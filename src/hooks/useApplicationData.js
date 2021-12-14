@@ -41,10 +41,9 @@ export default function useApplicationData() {
       ...state.appointments,
       [id]: appointment,
     };
-    const days = updateSpots(true);
     return axios.put(`/api/appointments/${id}`, { interview }).then((res) => {
+      const days = updateSpots(true);
       setState((prev) => ({ ...prev, appointments, days }));
-      console.log(state);
     });
   }
 
@@ -57,8 +56,8 @@ export default function useApplicationData() {
       ...state.appointments,
       [id]: appointment,
     };
-    const days = updateSpots(false);
     return axios.delete(`/api/appointments/${id}`).then((res) => {
+      const days = updateSpots(false);
       setState((prev) => ({ ...prev, appointments, days }));
     });
   }
@@ -67,7 +66,7 @@ export default function useApplicationData() {
     const dayAppInfo = getAppointmentsForDay(state, state.day);
     // console.log('dayAppInfo',dayAppInfo) // returns an array of objects containing appointment/interview information
     const targetDay = { ...state.days.find((day) => day.name === state.day) };
-    // // console.log('targetDay',targetDay.appointments) //object with id, day, appointments, interviewers, spots
+    // console.log('targetDay',targetDay.appointments) //object with id, day, appointments, interviewers, spots
     const nullApps = dayAppInfo.filter((app) => !app.interview).length;
     // console.log("nullApps", nullApps); // returns number of null interviews
     const spots = nullApps + (save ? -1 : 1);
