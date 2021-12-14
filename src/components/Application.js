@@ -25,14 +25,16 @@ export default function Application(props) {
     const promiseAppointments = axios.get(`${urlBase}appointments`);
     const promiseInterviewers = axios.get(`${urlBase}interviewers`);
 
-    Promise.all([promiseDays, promiseAppointments, promiseInterviewers]).then(
-      (all) => {
+    Promise.all([promiseDays, promiseAppointments, promiseInterviewers])
+      .then((all) => {
         const days = all[0].data;
         const appointments = all[1].data;
         const interviewers = all[2].data;
         setState((prev) => ({ ...prev, days, appointments, interviewers }));
-      }
-    );
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
 
   function bookInterview(id, interview) {
@@ -46,8 +48,14 @@ export default function Application(props) {
       ...state.appointments,
       [id]: appointment,
     };
-
-    setState((prev) => ({ ...prev, appointments }));
+    return axios
+      .put(`/api/appointments/${id}`, { interview })
+      .then((res) => {
+        setState((prev) => ({ ...prev, appointments }));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   const dailyAppointments = getAppointmentsForDay(state, state.day);
