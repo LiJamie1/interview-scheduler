@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { getAppointmentsForDay } from "helpers/selectors";
 
 export default function useApplicationData() {
   const [state, setState] = useState({
@@ -38,8 +39,10 @@ export default function useApplicationData() {
       ...state.appointments,
       [id]: appointment,
     };
+    const days = updateSpots(true);
     return axios.put(`/api/appointments/${id}`, { interview }).then((res) => {
-      setState((prev) => ({ ...prev, appointments }));
+      setState((prev) => ({ ...prev, appointments, days }));
+      console.log(state);
     });
   }
 
@@ -52,10 +55,23 @@ export default function useApplicationData() {
       ...state.appointments,
       [id]: appointment,
     };
+    const days = updateSpots(false);
     return axios.delete(`/api/appointments/${id}`).then((res) => {
-      setState((prev) => ({ ...prev, appointments }));
+      setState((prev) => ({ ...prev, appointments, days }));
     });
   }
 
-  return { state, setDay, bookInterview, cancelInterview };
+  function updateSpots(save) {
+    const dayAppInfo = getAppointmentsForDay(state, state.day);
+    // console.log('pain',dayAppInfo)
+    const targetDay = { ...state.days.find((day) => day.name === state.day) };
+    // // console.log('targetDay',targetDay.appointments) //object with id, day, appointments, interviewers, spots
+    const nullApps = dayAppInfo.filter((app) => !app.interview).length;
+    // console.log("nullApps", nullApps); // returns number of null interviews
+    const spots = nullApps + (save ? -1 : 1);
+    // console.log("spots", spots); // returns number of spots after checking if input is true/false
+    return { ...targetDay, spots };
+  }
+
+  return { state, setDay, bookInterview, cancelInterview, updateSpots };
 }
