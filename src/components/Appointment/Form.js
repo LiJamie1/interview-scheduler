@@ -45,7 +45,7 @@ export default function Form(props) {
             reset()
             props.onCancel()
           }}>Cancel</Button>
-        <Button confirm /* your code goes here */>Save</Button>
+        <Button confirm onClick={() => props.onSave(student, interviewer)} >Save</Button>
       </section>
     </section>
     </main >

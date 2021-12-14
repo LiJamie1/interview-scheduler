@@ -10,7 +10,7 @@ export default function Application(props) {
   const [state, setState] = useState({
     day: "Monday",
     days: [],
-    appointments: {}, // object of objects 
+    appointments: {},
     interviewers: {} //object of objects containing interviewer information
   });
 
@@ -31,6 +31,10 @@ export default function Application(props) {
       })
   }, []);
 
+  function bookInterview(id, interview) {
+    console.log(id, interview);
+  };  
+
   const dailyAppointments = getAppointmentsForDay(state, state.day);
   const appointmentArray = dailyAppointments.map(appointment => {
     const interview = getInterview(state, appointment.interview)
@@ -42,9 +46,11 @@ export default function Application(props) {
       interview={interview}
       time={appointment.time}
       interviewers={alteredInterviewers}
+      bookInterview={bookInterview}
     />)
   });
 
+  
 
   return (
     <main className="layout">
