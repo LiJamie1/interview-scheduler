@@ -23,7 +23,7 @@ const ERROR_SAVE = "ERROR_SAVE";
 export default function Appointment(props) {
   const { id, interview, time, interviewers, bookInterview, cancelInterview } =
     props;
-    
+
   const { mode, transition, back } = useVisualMode(
     props.interview ? SHOW : EMPTY
   );

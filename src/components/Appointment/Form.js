@@ -19,7 +19,7 @@ export default function Form(props) {
   // interviewer: number
   // onSave: function
   // onCancel: function
-  const { interviewers, onCancel, onSave} = props
+  const { interviewers, onCancel, onSave } = props;
 
   return (
     <main className="appointment__card appointment__card--create">
