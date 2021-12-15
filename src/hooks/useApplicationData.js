@@ -42,6 +42,7 @@ export default function useApplicationData() {
       [id]: appointment,
     };
     return axios.put(`/api/appointments/${id}`, { interview }).then((res) => {
+      // check if edit/create and sets days accordingly
       const days = !state.appointments[id].interview
         ? updateSpots(true)
         : [...state.days];
