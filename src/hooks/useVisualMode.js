@@ -4,6 +4,8 @@ export default function useVisualMode(initial) {
   const [mode, setMode] = useState(initial);
   const [history, setHistory] = useState([initial]);
 
+  // functions to navigate between Appointment views
+  // changes view and updates history
   function transition(newMode, replace = false) {
     if (replace) {
       setHistory((prev) => [...prev.slice(0, -1), newMode]);
@@ -12,7 +14,6 @@ export default function useVisualMode(initial) {
     }
     setMode(newMode);
   }
-
   function back() {
     setHistory((prev) => {
       if (prev.length === 1) {
@@ -23,5 +24,6 @@ export default function useVisualMode(initial) {
       return newHistory;
     });
   }
+
   return { mode, history, transition, back };
 }

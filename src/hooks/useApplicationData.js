@@ -33,6 +33,7 @@ export default function useApplicationData() {
   }, []);
 
   function bookInterview(id, interview) {
+    // create new appointments object for setState
     const appointment = {
       ...state.appointments[id],
       interview: { ...interview },
@@ -51,6 +52,7 @@ export default function useApplicationData() {
   }
 
   function cancelInterview(id) {
+    // create new appointments object for setState
     const appointment = {
       ...state.appointments[id],
       interview: null,
@@ -67,20 +69,24 @@ export default function useApplicationData() {
 
   function updateSpots(save) {
     const dayAppInfo = getAppointmentsForDay(state, state.day);
-    // console.log('dayAppInfo',dayAppInfo) // returns an array of objects containing appointment/interview information
+    // console.log('dayAppInfo',dayAppInfo) // returns an array of objects containing appointment/interview information - refer to selectors.js
     const targetDay = { ...state.days.find((day) => day.name === state.day) };
     // console.log('targetDay',targetDay.appointments) //object with id, day, appointments, interviewers, spots
     const nullApps = dayAppInfo.filter((app) => !app.interview).length;
     // console.log("nullApps", nullApps); // returns number of null interviews
     const spots = nullApps + (save ? -1 : 1);
     // console.log("spots", spots); // returns number of spots after checking if input is true/false
+
+    // individual entry of array
     const dayNewSpots = {
       ...targetDay,
       spots,
-    }; // new object with day and spot value
+    };
+    // create newDays array to output correct output for setState
+    // update day within the array of days
     const newDays = state.days.map((day) =>
       day.name === state.day ? dayNewSpots : day
-    ); // update day within the array of days
+    );
     return newDays;
   }
 
