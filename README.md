@@ -14,6 +14,7 @@
 - Spots remaining count updates as you delete, create and edit
 - Confirmation page on delete
 - Loading during Async operations
+- Mobile responsive
 
 ## Other Features For Future Development
 - Block save if interviewer is not chosen - currently breaks the database if interviewer is left empty
