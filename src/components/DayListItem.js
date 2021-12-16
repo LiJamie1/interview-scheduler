@@ -26,7 +26,7 @@ export default function DayListItem(props) {
   };
 
   return (
-    <li onClick={() => setDay(name)} className={listClass}>
+    <li onClick={() => setDay(name)} className={listClass} data-cy="day" >
       <h2 className="text--regular">{name}</h2>
       <h3 className="text--light">{spotCheck(spots)} remaining</h3>
     </li>
