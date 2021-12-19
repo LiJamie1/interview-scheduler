@@ -91,7 +91,7 @@ export default function Appointment(props) {
         <Error message="Error saving. Please try again." onClose={() => back()} />
       )}
       {mode === ERROR_DELETE && (
-        <Error message="Error deleting. Please try again." onClose={() => back()} />
+        <Error message="Error deleting. Please try again." onClose={confirm} />
       )}
     </article>
   );
