@@ -60,14 +60,6 @@ export default function Appointment(props) {
     transition(SHOW);
   }
 
-  function delError() {
-    transition(CONFIRM);
-  }
-
-  function saveError() {
-    transition(CREATE);
-  }
-
   return (
     <article className="appointment">
       <Header time={time} />
@@ -96,10 +88,10 @@ export default function Appointment(props) {
         />
       )}
       {mode === ERROR_SAVE && (
-        <Error message="Error saving. Please try again." onClose={saveError} />
+        <Error message="Error saving. Please try again." onClose={() => back()} />
       )}
       {mode === ERROR_DELETE && (
-        <Error message="Error deleting. Please try again." onClose={delError} />
+        <Error message="Error deleting. Please try again." onClose={() => back()} />
       )}
     </article>
   );
