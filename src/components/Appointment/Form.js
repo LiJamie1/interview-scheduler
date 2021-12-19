@@ -35,11 +35,12 @@ export default function Form(props) {
     // onSave(student, interviewer)
     if (student && interviewer) {
       onSave(student, interviewer);
+      return
     }
     setError({
       ...error,
       student: student ? "" : "Student name cannot be blank",
-      interview: interviewer ? "" : "Select an Interviewer"
+      interviewer: interviewer ? "" : "Select an Interviewer",
     });
   };
 
