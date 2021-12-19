@@ -7,7 +7,10 @@ export default function Form(props) {
   // student: String and interviewer:  Number
   const [student, setStudent] = useState(props.student || "");
   const [interviewer, setInterviewer] = useState(props.interviewer || null);
-  const [error, setError] = useState("");
+  const [error, setError] = useState({
+    student: "",
+    interviewer: "",
+  });
 
   const reset = function () {
     setStudent("");
@@ -22,15 +25,23 @@ export default function Form(props) {
   // onCancel: function
   const { interviewers, onCancel, onSave } = props;
 
-  const validate = function() {
-    if (student === "") {
-      setError("Student name cannot be blank");
-      return;
-    } else {
-      setError(null)
+  const validate = function () {
+    // if (student === "") {
+    //   setError("Student name cannot be blank");
+    //   return;
+    // } else {
+    //   setError(null)
+    // }
+    // onSave(student, interviewer)
+    if (student && interviewer) {
+      onSave(student, interviewer);
     }
-    onSave(student, interviewer)
-  }
+    setError({
+      ...error,
+      student: student ? "" : "Student name cannot be blank",
+      interview: interviewer ? "" : "Select an Interviewer"
+    });
+  };
 
   return (
     <main className="appointment__card appointment__card--create">
@@ -46,12 +57,13 @@ export default function Form(props) {
             data-testid="student-name-input"
           />
         </form>
-        <section className="appointment__validation">{error}</section>
+        <section className="appointment__validation">{error.student}</section>
         <InterviewerList
           interviewers={interviewers}
           value={interviewer}
           onChange={setInterviewer}
         />
+        <section className="appointment__validation">{error.interviewer}</section>
       </section>
       <section className="appointment__card-right">
         <section className="appointment__actions">
