@@ -1,5 +1,8 @@
 # Interview Scheduler
 
+An interview scheduling application build with React.
+This project was done during my web development bootcamp at Lighthouse Labs to learn React and various testing frameworks.
+
 ## Stack
 - React
 - Webpack, Bable
