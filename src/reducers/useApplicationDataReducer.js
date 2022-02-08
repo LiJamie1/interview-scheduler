@@ -1,3 +1,5 @@
+import updateInterviewSpots from "helpers/selectors"
+
 const SET_DAY = "SET_DAY";
 const SET_APPLICATION_DATA = "SET_APPLICATION_DATA";
 const SET_INTERVIEW = "SET_INTERVIEW";
@@ -18,6 +20,11 @@ function reducer(state, action) {
         interviewers,
       };
     case SET_INTERVIEW:
+      const {id, interview} = action;
+      const appointment = {...state.appointments[id], interview}
+      const list_of_appointments = {...state.appointments, [id]: appointment}
+
+      const days = 
       return {};
     default:
       throw new Error(

@@ -7,7 +7,7 @@ export function getAppointmentsForDay(state, day) {
   if (!targetDay) {
     return [];
   }
-  
+
   return targetDay.appointments.map((appId) => appointments[appId]);
   //[appointment 1...] array of objects
 }
@@ -37,3 +37,15 @@ export function getInterview(state, interview) {
     interviewer: interviewers[interviewer],
   };
 }
+
+export function updateAppointmentSpots(state, appointments) => {
+  const spots = getAppointmentsForDay(
+    { ...state, appointments },
+    state.day
+  ).filter((appointments) => !appointments.interview).length;
+
+  const days = state.days.map((day) =>
+    day.name === state.day ? { ...day, spots } : day
+  );
+  return days;
+};
