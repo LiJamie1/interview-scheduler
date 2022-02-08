@@ -38,7 +38,7 @@ export function getInterview(state, interview) {
   };
 }
 
-export function updateAppointmentSpots(state, appointments) => {
+export default function updateInterviewSpots(state, appointments) {
   const spots = getAppointmentsForDay(
     { ...state, appointments },
     state.day
@@ -48,4 +48,4 @@ export function updateAppointmentSpots(state, appointments) => {
     day.name === state.day ? { ...day, spots } : day
   );
   return days;
-};
+}
