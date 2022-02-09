@@ -30,6 +30,24 @@ export default function useApplicationData() {
       .then(() => dispatch({ type: SET_INTERVIEW, id, interview: null }));
   };
 
+  //websocket
+  useEffect(() => {
+    const webSocket = new WebSocket(
+      process.env.REACT_APP_WEBSOCKET_URL,
+      "protocolOne"
+    );
+
+    webSocket.onopen = () => {
+      webSocket.send("ping");
+    };
+
+    webSocket.onmessage = (event) => {
+      console.log(event.data);
+    };
+    return () => webSocket.close();
+  }, []);
+
+  //fetch data
   useEffect(() => {
     const urlBase = "http://localhost:8001/api/";
     const promiseDays = axios.get(`${urlBase}days`);
