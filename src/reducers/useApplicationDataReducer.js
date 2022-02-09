@@ -29,8 +29,8 @@ export default function appReducer(state, action) {
       const newDaysState = updateInterviewSpots(state, list_of_appointments);
       return {
         ...state,
-        list_of_appointments,
-        newDaysState,
+        appointments: list_of_appointments,
+        days: newDaysState,
       };
     default:
       throw new Error(

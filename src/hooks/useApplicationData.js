@@ -1,6 +1,5 @@
-import { useState, useEffect, useReducer } from "react";
+import { useEffect, useReducer } from "react";
 import axios from "axios";
-import { getAppointmentsForDay } from "helpers/selectors";
 import appReducer, {
   SET_DAY,
   SET_INTERVIEW,
@@ -17,14 +16,14 @@ export default function useApplicationData() {
 
   const setDay = (day) => dispatch({ type: SET_DAY, day });
 
-  const setInterview = (id, interview) => {
+  const bookInterview = (id, interview) => {
     const route = `api/appointments/${id}`;
     return axios
       .put(route, { interview })
       .then(() => dispatch({ type: SET_INTERVIEW, id, interview }));
   };
 
-  const destroyInterview = (id) => {
+  const cancelInterview = (id) => {
     const route = `api/appointments/${id}`;
     return axios
       .delete(route)
@@ -112,5 +111,10 @@ export default function useApplicationData() {
   //   return newDays;
   // }
 
-  return { state, setDay, setInterview, destroyInterview };
+  return {
+    state,
+    setDay,
+    bookInterview,
+    cancelInterview,
+  };
 }
