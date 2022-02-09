@@ -53,64 +53,6 @@ export default function useApplicationData() {
       });
   }, []);
 
-  // function bookInterview(id, interview) {
-  //   // create new appointments object for setState
-  //   const appointment = {
-  //     ...state.appointments[id],
-  //     interview: { ...interview },
-  //   };
-  //   const appointments = {
-  //     ...state.appointments,
-  //     [id]: appointment,
-  //   };
-  //   return axios.put(`/api/appointments/${id}`, { interview }).then((res) => {
-  //     // check if edit/create and sets days accordingly
-  //     const days = !state.appointments[id].interview
-  //       ? updateSpots(true)
-  //       : [...state.days];
-  //     setState((prev) => ({ ...prev, appointments, days }));
-  //   });
-  // }
-
-  // function cancelInterview(id) {
-  //   // create new appointments object for setState
-  //   const appointment = {
-  //     ...state.appointments[id],
-  //     interview: null,
-  //   };
-  //   const appointments = {
-  //     ...state.appointments,
-  //     [id]: appointment,
-  //   };
-  //   return axios.delete(`/api/appointments/${id}`).then((res) => {
-  //     const days = updateSpots(false);
-  //     setState((prev) => ({ ...prev, appointments, days }));
-  //   });
-  // }
-
-  // function updateSpots(save) {
-  //   const dayAppInfo = getAppointmentsForDay(state, state.day);
-  //   // console.log('dayAppInfo',dayAppInfo) // returns an array of objects containing appointment/interview information - refer to selectors.js
-  //   const targetDay = { ...state.days.find((day) => day.name === state.day) };
-  //   // console.log('targetDay',targetDay.appointments) //object with id, day, appointments, interviewers, spots
-  //   const nullApps = dayAppInfo.filter((app) => !app.interview).length;
-  //   // console.log("nullApps", nullApps); // returns number of null interviews
-  //   const spots = nullApps + (save ? -1 : 1);
-  //   // console.log("spots", spots); // returns number of spots after checking if input is true/false
-
-  //   // individual entry of array
-  //   const dayNewSpots = {
-  //     ...targetDay,
-  //     spots,
-  //   };
-  //   // create newDays array to output correct output for setState
-  //   // update day within the array of days
-  //   const newDays = state.days.map((day) =>
-  //     day.name === state.day ? dayNewSpots : day
-  //   );
-  //   return newDays;
-  // }
-
   return {
     state,
     setDay,
