@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "components/Appointment/styles.scss";
 import Confirm from "./Confirm";
 import Empty from "./Empty";
@@ -24,9 +24,17 @@ export default function Appointment(props) {
   const { id, interview, time, interviewers, bookInterview, cancelInterview } =
     props;
 
-  const { mode, transition, back } = useVisualMode(
-    props.interview ? SHOW : EMPTY
-  );
+  const { mode, transition, back } = useVisualMode(interview ? SHOW : EMPTY);
+
+  // WebSocket useEffect to avoid stale state
+  useEffect(() => {
+    if (interview && mode === EMPTY) {
+      transition(SHOW);
+    }
+    if (!interview && mode === SHOW) {
+      transition(EMPTY);
+    }
+  }, [interview, transition, mode]);
 
   // navigation as a result of saving, editing and deleting appointments
   function save(name, interviewer) {
@@ -37,14 +45,14 @@ export default function Appointment(props) {
     transition(SAVE);
     bookInterview(id, interview)
       .then(() => transition(SHOW))
-      .catch(() => transition(ERROR_SAVE, true));
+      .catch((err) => transition(ERROR_SAVE, true));
   }
 
   function del() {
     transition(DELETING, true);
     cancelInterview(id)
       .then(() => transition(EMPTY))
-      .catch(() => transition(ERROR_DELETE, true));
+      .catch((err) => transition(ERROR_DELETE, true));
   }
 
   // navigation of Appointments view
@@ -64,7 +72,7 @@ export default function Appointment(props) {
     <article className="appointment">
       <Header time={time} />
       {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
-      {mode === SHOW && (
+      {mode === SHOW && interview && (
         <Show
           student={interview.student}
           interviewer={interview.interviewer}
@@ -88,7 +96,10 @@ export default function Appointment(props) {
         />
       )}
       {mode === ERROR_SAVE && (
-        <Error message="Error saving. Please try again." onClose={() => back()} />
+        <Error
+          message="Error saving. Please try again."
+          onClose={() => back()}
+        />
       )}
       {mode === ERROR_DELETE && (
         <Error message="Error deleting. Please try again." onClose={confirm} />

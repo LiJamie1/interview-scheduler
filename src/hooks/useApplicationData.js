@@ -32,18 +32,13 @@ export default function useApplicationData() {
 
   //websocket
   useEffect(() => {
-    const webSocket = new WebSocket(
-      process.env.REACT_APP_WEBSOCKET_URL,
-      "protocolOne"
-    );
+    const webSocket = new WebSocket(process.env.REACT_APP_WEBSOCKET_URL);
 
-    webSocket.onopen = () => {
-      webSocket.send("ping");
+    webSocket.onmessage = (e) => {
+      const msg = JSON.parse(e.data);
+      if (msg.type === SET_INTERVIEW) dispatch(msg);
     };
 
-    webSocket.onmessage = (event) => {
-      console.log(event.data);
-    };
     return () => webSocket.close();
   }, []);
 
