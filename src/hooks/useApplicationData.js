@@ -44,10 +44,10 @@ export default function useApplicationData() {
 
   //fetch data
   useEffect(() => {
-    const urlBase = "http://localhost:8001/api/";
-    const promiseDays = axios.get(`${urlBase}days`);
-    const promiseAppointments = axios.get(`${urlBase}appointments`);
-    const promiseInterviewers = axios.get(`${urlBase}interviewers`);
+    const urlBase = process.env.REACT_APP_API_BASE_URL;
+    const promiseDays = axios.get(`${urlBase}/api/days`);
+    const promiseAppointments = axios.get(`${urlBase}/api/appointments`);
+    const promiseInterviewers = axios.get(`${urlBase}/apiinterviewers`);
 
     // Grabs information for state from api from promise calls.
     // .all - if any of the promises fail they all fail
